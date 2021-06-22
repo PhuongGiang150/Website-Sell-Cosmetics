@@ -1,0 +1,46 @@
+.postWrap {
+    font-size: 17px;
+    line-height: 26px;
+    padding: 30px 0;
+}
+
+    .postWrap p {
+        color: var(--black-cl-1);
+    }
+
+    .postWrap a {
+        color: var(--default-cl);
+    }
+
+    .postWrap strong {
+        font-size:19px;
+        font-weight:500;
+        color:var(--default-cl)
+    }
+
+    .postWrap p img {
+        max-width:800px;
+        margin: 0 auto;
+        display: block;
+    }
+
+.post-heading {
+    font-size: 20px;
+    color: red;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 3rem;
+    text-align: center;
+    margin-bottom: 24px;
+    margin-top: 16px;
+}
+@media(max-width: 1023px) {
+    .postWrap p img {
+        max-width: 600px;
+    }
+}
+@media(max-width: 739px) {
+    .postWrap p img {
+        width:100%;
+    }
+}

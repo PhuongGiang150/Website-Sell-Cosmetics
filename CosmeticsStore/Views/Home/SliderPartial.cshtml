@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CosmeticsStore.Models.Slider>
+
+@foreach (var item in Model)
+{
+    <div class="slide active" style="background-image: url('@item.Image');">
+        <div class="container">
+            <div class="caption">
+                <h1>@item.Info</h1>
+                <p>@item.Description</p>
+                <a href="@item.Link" class="btn btn--default">Xem ngay</a>
+
+            </div>
+        </div>
+    </div>
+
+}

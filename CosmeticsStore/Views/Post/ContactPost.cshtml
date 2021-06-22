@@ -1,0 +1,73 @@
+﻿@using CosmeticsStore.Models;
+
+@model  Contact
+
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<link href="~/Content/Site/assets/css/contact.css" rel="stylesheet" />
+<div class="main">
+    <div class="grid wide">
+        <div class="main__breadcrumb">
+            <div class="breadcrumb__item">
+                <a href="@Url.RouteUrl("TrangChu")" class="breadcrumb__link">Trang chủ</a>
+            </div>
+            <div class="breadcrumb__item">
+                <a href="#" class="breadcrumb__link">Liên hệ</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l-6 m-12 s-12">
+                <iframe src="@Model.LinkMap" width="100%"
+                        height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="col l-6 m-12 s-12">
+                <div class="contact__wrap">
+                    <div class="contact__img">
+                        <img src="@Model.Logo" alt="">
+                    </div>
+                    <ul class="contact__info">
+                        <li class="contact__text">
+                            <i class="fas fa-map-marked-alt"></i> @Model.Address
+                        </li>
+                        <li>
+                            <a href="tel:@Model.Phone1" class="contact__link">
+                                <i class="fas fa-phone"></i> @Model.Phone1
+                            </a>
+                            <a href="tel:@Model.Phone2" class="contact__link">
+                                &#8212; @Model.Phone2
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="contact__link">
+                                <i class="fas fa-envelope"></i> @Model.Email
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-us">
+                    <div class="about-us__heading">Liên hệ với chúng tôi</div>
+                    <div class="form__group">
+                        <div>
+                            <input type="text" value="Họ và tên">
+                        </div>
+                        <div>
+                            <input type="text" value="Email">
+                        </div>
+                        <div>
+                            <input type="text" value="Địa chỉ">
+                        </div>
+                        <div>
+                            <input type="text" value="Số điện thoại">
+                        </div>
+                    </div>
+                    <textarea name="" id="" cols="30" rows="5" placeholder="Lời nhắn"></textarea>
+                    <button type="submit" class="btn btn--default">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

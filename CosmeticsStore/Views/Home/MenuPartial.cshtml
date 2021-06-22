@@ -1,0 +1,27 @@
+﻿@using CosmeticsStore.Models;
+@model IEnumerable<Product>
+
+<div class="sub-nav-wrap grid wide">
+
+    @foreach (var groupItem in Model.GroupBy(n => n.ProductType))
+    {
+        if (groupItem.Key != null)
+        {
+            <ul class="sub-nav">
+                <li class="sub-nav__item">
+                    <a href="#" class="sub-nav__link heading">@groupItem.Key.Name</a>
+                </li>
+                @foreach (var item in groupItem.GroupBy(n => n.Producer))
+                {
+                    if (item.Key != null)
+                    {
+            <li class="sub-nav__item">
+                @*<a href="@Url.Action("ProductList", "Product", new { @ProductTypeID = groupItem.Key.ProductTypeID, @ProducerID = item.Key.ProducerID})" class="sub-nav__link"> @item.Key.Name</a>*@
+                <a href="@Url.RouteUrl("DanhMucSanPham2",new { @ProductTypeID = groupItem.Key.ProductTypeID, @ProducerID = item.Key.ProducerID})" class="sub-nav__link"> @item.Key.Name</a>
+            </li>
+                    }
+                }
+            </ul>
+        }
+    }
+</div>

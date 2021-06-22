@@ -1,0 +1,266 @@
+﻿@{ var user = Session["user"] as CosmeticsStore.Models.Customer; }
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://cocoshop.vn/ -->
+<!-- http://mauweb.monamedia.net/vanihome/ -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <!-- Font roboto -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Icon fontanwesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <!-- Css-->
+    @Styles.Render("~/CssSite")
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Owl caroucel Js-->
+    <script src="~/Content/Site/assets/owlCarousel/owl.carousel.min.js"></script>
+</head>
+
+<body>
+    <div class="header scrolling" id="myHeader">
+        <div class="grid wide">
+            <div class="header__top">
+                <div class="navbar-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <a href="@Url.RouteUrl("TrangChu")" class="header__logo">
+                    <img src="~/Content/Site/assets/logo.png" alt="">
+                </a>
+                <div class="header__search">
+                    @using (Html.BeginForm("KQTimKiem", "TimKiem"))
+                    {
+                        <div class="header__search-wrap">
+                            <input type="text" name="sTuKhoa" class="header__search-input" placeholder="Tìm kiếm">
+                            <button type="submit" class="header__search-icon">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="header__account">
+
+                    @if (Session["user"] != null)
+                    {
+                        if (@user.Image == null)
+                        {
+                            <img class="img-user" src="/UploadFiles/images/users/userdefault.png">
+                        }
+                        else
+                        {
+                            <img class="img-user" src="@user.Image">
+                        }
+                        <span class="name-user">@user.Name</span>
+                        <ul class="list-user">
+                            <li>
+                                <a href="@Url.RouteUrl("ThayDoiTaiKhoan", new { @id = user.CustomerID})" class="item-user">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Logout", "AuthenSites")" class="item-user">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "AuthenSites")" class="header__account-login">Đăng Nhập</a>
+                        <a href="@Url.Action("Register", "AuthenSites")" class="header__account-register">Đăng Kí</a>
+                    }
+                </div>
+                <!-- Cart -->
+                @Html.Action("GioHangPartial", "Cart")
+            </div>
+        </div>
+        <!-- Menu -->
+        <div class="header__nav">
+            <ul class="header__nav-list">
+                <li class="header__nav-item nav__search">
+                    <div class="nav__search-wrap">
+                        <input class="nav__search-input" type="text" name="" id="" placeholder="Tìm sản phẩm...">
+                    </div>
+                    <div class="nav__search-btn">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </li>
+
+                <li class="header__nav-item authen-form">
+                    @if (Session["user"] != null)
+                    {
+                        <a class="header__nav-link">@user.Name</a>
+                        <ul class="authen-list">
+                            <li>
+                                <a href="@Url.RouteUrl("ThayDoiTaiKhoan", new { @id = user.CustomerID})" class="sub-nav__link">Tài khoản</a>
+                            </li>
+                            <li>
+                                <a href="#" class="sub-nav__link">Hoạt động</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Logout", "AuthenSites")" class="sub-nav__link">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <a href="#" class="header__nav-link">Tài Khoản</a>
+                        <ul class="authen-list">
+                            <li>
+                                <a href="@Url.Action("Login","AuthenSites")" class="sub-nav__link">Đăng Nhập</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Register","AuthenSites")" class="sub-nav__link">Đăng Kí</a>
+                            </li>
+                        </ul>
+
+                    }
+                </li>
+                <li class="header__nav-item index">
+                    <a href="@Url.RouteUrl("TrangChu")" class="header__nav-link">Trang chủ</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="@Url.RouteUrl("GioiThieu")" class="header__nav-link">Giới Thiệu</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="#" class="header__nav-link">Sản Phẩm</a>
+                    @Html.Action("MenuPartial", "Home")
+                </li>
+                <li class="header__nav-item">
+                    <a href="@Url.RouteUrl("DanhSachTinTuc")" class="header__nav-link">Tin Tức</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="@Url.RouteUrl("LienHe")" class="header__nav-link">Liên Hệ</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    @RenderBody()
+    <div class="footer">
+        <div class="grid wide">
+            <div class="row">
+                <div class="col l-3 m-6 s-12">
+                    <h3 class="footer__title">Menu</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">
+                            <a href="http://ngocanhcosmetics.com/danh-muc-san-pham/1/7" class="footer__link">Son môi</a>
+                        </li>
+                        <li class="footer__item">
+                            <a href="http://ngocanhcosmetics.com/danh-muc-san-pham/7/1" class="footer__link">Tẩy trang</a>
+                        </li>
+                        <li class="footer__item">
+                            <a href="http://ngocanhcosmetics.com/danh-muc-san-pham/4/6" class="footer__link">Kem nền</a>
+                        </li>
+                        <li class="footer__item">
+                            <a href="http://ngocanhcosmetics.com/danh-muc-san-pham/8/1" class="footer__link">Dưỡng da</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-3 m-6 s-12">
+                    <h3 class="footer__title">Hỗ trợ khách hàng</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">
+                            <a href="#" class="footer__link">Hướng dẫn mua hàng</a>
+                        </li>
+                        <li class="footer__item">
+                            <a href="#" class="footer__link">Giải đáp thắc mắc</a>
+                        </li>
+                        <li class="footer__item">
+                            <a href="#" class="footer__link">Chính sách mua hàng</a>
+                        </li>
+                        <li class="footer__item">
+                            <a href="#" class="footer__link">Chính sách đổi trả</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l-3 m-6 s-12">
+                    <h3 class="footer__title">Liên hệ</h3>
+                    @Html.Action("FooterPartial", "Home")
+                </div>
+                <div class="col l-3 m-6 s-12">
+                    <h3 class="footer__title">Đăng kí</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">
+                            <span class="footer__text">Đăng ký để nhận được được thông tin ưu đãi mới nhất từ chúng tôi.</span>
+                        </li>
+                        <li class="footer__item">
+                            <div class="send-email">
+                                <input class="send-email__input" type="email" placeholder="Nhập Email...">
+                                <a href="#" class="send-email__link">
+                                    <i class="fas fa-paper-plane"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <span class="footer__text"> &copy Bản quyền thuộc về <a class="footer__link" href="#"> Phương Giang</a></span>
+        </div>
+    </div>
+    <div class="up-top" id="upTop" onclick="goToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    $('.owl-carousel.bands').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: false,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            800: {
+                items: 3
+            },
+            1000: {
+                items: 6
+            }
+        }
+    })
+
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "105913298384666");
+    chatbox.setAttribute("attribution", "biz_inbox");
+    window.fbAsyncInit = function () {
+        FB.init({
+            xfbml: true,
+            version: 'v10.0'
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- Sccipt-->
+<script src="~/Content/Site/assets/js/layout.js"></script>
+
+
+@RenderSection("jsSite", required: false)

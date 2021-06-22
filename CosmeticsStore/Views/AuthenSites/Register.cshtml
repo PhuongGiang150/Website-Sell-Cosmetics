@@ -1,0 +1,92 @@
+﻿@model CosmeticsStore.Models.Customer
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng kí</title>
+    <link href="~/Content/AuthenForms/style.css" rel="stylesheet" />
+    <link href="~/Content/AuthenForms/style2.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main">
+        <form action="/AuthenSites/Register" method="POST" class="form" id="form-1">
+            @Html.AntiForgeryToken()
+            <h3 class="heading">Thành viên đăng ký</h3>
+            <p class="desc">Cùng nhau mua sắm tại Ngọc ánh Cosmetics ❤️</p>
+            <div class="spacer"></div>
+            <div class="wrapitem-center">
+                @Html.ValidationMessage("ErrorUserName", new { @class = "form-info" })
+                @Html.ValidationMessage("ErrorEmail", new { @class = "form-info" })
+            </div>
+            <div class="form-group">
+                <label for="fullname" class="form-label">Họ Tên</label>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "VD: Lê Thị Ngọc Ánh" } })
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="account" class="form-label">Tài khoản</label>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "VD: NgocAnh203" } })
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Nhập mật khẩu" })
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "VD: ngocanh203@gmail.com" } })
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="address" class="form-label">Địa chỉ</label>
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "VD: 234 Lê Quý Đôn, Tp.Thái Bình" } })
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="address" class="form-label">Số điện thoại</label>
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "VD: 0346587763" } })
+                <span class="form-message"></span>
+            </div>
+            <div class="wrapitem-center">
+                <button class="form-submit">Đăng ký</button>
+            </div>
+            <div class="wrapitem-center">
+                <a class="form-link" href="@Url.Action("Login","AuthenSites")">Đã có tài khoản? <b>Đăng Nhập</b></a>
+            </div>
+        </form>
+    </div>
+    <script src="~/Content/AuthenForms/validator.js"></script>
+
+    <script>
+        Validator({
+            form: 'form-1',
+            errorSelector: '.form-message',
+            formGroup: '.form-group',
+            rules: [
+                Validator.isRequired('#Name'),
+                Validator.isRequired('#UserName'),
+                Validator.minLength('#Password', 6),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirm('#password_confirmation', function () {
+                    return document.querySelector('#form-1 #Password').value
+                }, 'Mật khẩu nhập lại không chính xác'),
+                Validator.isEmail('#Email'),
+                Validator.isRequired('#Address'),
+                Validator.isRequired('#Phone'),
+            ]
+        })
+    </script>
+</body>
+
+</html>

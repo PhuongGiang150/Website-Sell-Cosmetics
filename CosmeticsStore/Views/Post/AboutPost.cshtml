@@ -1,0 +1,28 @@
+﻿@using CosmeticsStore.Models;
+
+@model  About
+
+@{
+    ViewBag.Title = "Giới Thiệu";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<link href="~/Content/Site/assets/css/Post.css" rel="stylesheet" />
+<div class="main">
+    <div class="grid wide">
+        <div class="postWrap">
+                <div class="main__taskbar">
+                    <div class="main__breadcrumb">
+                        <div class="breadcrumb__item">
+                            <a href="@Url.Action("Index","Home")" class="breadcrumb__link">Trang chủ</a>
+                        </div>
+                        <div class="breadcrumb__item">
+                            <a href="#" class="breadcrumb__link">Giới Thiệu</a>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="post-heading"> @Model.Name</h1>
+                @Html.Raw(Model.Content)
+        </div>
+    </div>
+</div>

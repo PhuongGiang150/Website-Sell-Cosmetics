@@ -1,0 +1,97 @@
+﻿@model IEnumerable<CosmeticsStore.Models.Order>
+
+@{
+    ViewBag.Title = "Danh sách đơn hàng chưa duyệt";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="h3 mb-2 text-gray-800">Danh sách đơn hàng chưa duyệt</h1>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DeliveryDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Paid)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Discount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cancelled)
+                        </th>
+                        <th>Duyệt đơn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.Name)
+                            </td>
+                            <td>
+                                @item.OrderDate.Value.ToString("hh:mm - dd /MM/yyyy")
+                            </td>
+                            <td>
+                                @if (item.Status == true)
+                                {
+                                    <span>Đã giao</span>
+                                }
+                                else
+                                {
+                                    <span>Chưa giao</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeliveryDate)
+                            </td>
+                            <td>
+                                @if (item.Paid == true)
+                                {
+                                    <span>Đã thanh toán</span>
+                                }
+                                else
+                                {
+                                    <span>Chưa thanh toán</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Discount)
+                            </td>
+                            <td>
+                                @if (item.Cancelled == true)
+                                {
+                                    <span>Đã hủy</span>
+                                }
+                                else
+                                {
+                                    <span>Chưa hủy</span>
+                                }
+                            </td>
+
+                            <td class="control">
+                                <a href="@Url.Action("DuyetDonHang","QuanLyDonHang" ,new { id=item.OrderID})" title="Duyệt đơn hàng" target="_blank" class="btn btn-warning btn-circle"><i class="fab fa-firefox-browser"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

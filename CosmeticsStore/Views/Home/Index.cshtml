@@ -1,0 +1,363 @@
+﻿
+@{
+    var trending = (List<CosmeticsStore.Models.Product>)ViewBag.Trendings;
+    var hot = (List<CosmeticsStore.Models.Product>)ViewBag.Hots;
+    var news = (List<CosmeticsStore.Models.Product>)ViewBag.News;
+    var price = (List<CosmeticsStore.Models.Product>)ViewBag.Prices;
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+
+
+}
+<!-- Css Home -->
+<link href="~/Content/Site/assets/css/home.css" rel="stylesheet" />
+<div class="main">
+    <!-- Slider -->
+    <div class="main__slice">
+        <div class="slider">
+            @Html.Action("SliderPartial", "Home")
+        </div>
+        <!-- controls  -->
+        <div class="controls">
+            <div class="prev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        <!-- indicators -->
+        <div class="indicator">
+        </div>
+    </div>
+    <!--Product Category -->
+    <div class="main__tabnine">
+        <div class="grid wide">
+            <!-- Tab items -->
+            <div class="tabs">
+                <div class="tab-item active">
+                    Bán Chạy
+                </div>
+                <div class="tab-item">
+                    Giá tốt
+                </div>
+                <div class="tab-item">
+                    Mới Nhập
+                </div>
+                <div class="line"></div>
+            </div>
+            <!-- Tab content -->
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <div class="row">
+                        @foreach (var item in trending)
+                        {
+                            var link = "/chi-tiet/" + item.MetaTitle + "-" + item.ProductID;
+                            <div class="col l-2 m-4 s-6">
+                                <div class="product">
+                                    <div class="product__avt" style="background-image: url('@item.Image1');">
+                                    </div>
+                                    @if (item.Discount != 0 && item.Discount != null)
+                                    {
+                                        <div class="product__info">
+                                            <h3 class="product__name">@item.Name</h3>
+                                            <div class="product__price">
+                                                <div class="price__old">
+                                                    @Convert.ToDecimal(item.Price / (100 - item.Discount) * 100).ToString("#,##0") <span class="price__unit"> đ</span>
+                                                </div>
+                                                <div class="price__new"> @Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                            </div>
+                                            <div class="product__sale">
+                                                <span class="product__sale-percent">@item.Discount%</span>
+                                                <span class="product__sale-text">Giảm</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product__info">
+                                            <h3 class="product__name">@item.Name</h3>
+
+                                            <div class="product__price">
+                                                <div class="price__new">@Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <a href="@link" class="viewDetail">Xem chi tiết</a>
+                                    <a href="@Url.Action("ThemGioHang", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString()})" class="addToCart">Thêm vào giỏ</a>
+                                    @*  @Ajax.ActionLink("Thêm giỏ hàng Ajax", "ThemGioHangAjax", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)*@
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane">
+                    <div class="row">
+                        @foreach (var item in price)
+                        {
+                            var link = "/chi-tiet/" + item.MetaTitle + "-" + item.ProductID;
+                            <div class="col l-2 m-4 s-6">
+                                <div class="product">
+                                    <div class="product__avt" style="background-image: url('@item.Image1');">
+                                    </div>
+                                    @if (item.Discount != 0 && item.Discount != null)
+                                    {
+                                        <div class="product__info">
+                                            <h3 class="product__name">@item.Name</h3>
+                                            <div class="product__price">
+                                                <div class="price__old">
+                                                    @Convert.ToDecimal(item.Price / (100 - item.Discount) * 100).ToString("#,##0") <span class="price__unit"> đ</span>
+                                                </div>
+                                                <div class="price__new"> @Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                            </div>
+                                            <div class="product__sale">
+                                                <span class="product__sale-percent">@item.Discount%</span>
+                                                <span class="product__sale-text">Giảm</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product__info">
+                                            <h3 class="product__name">@item.Name</h3>
+
+                                            <div class="product__price">
+                                                <div class="price__new">@Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <a href="@link" class="viewDetail">Xem chi tiết</a>
+                                    <a href="@Url.Action("ThemGioHang", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString()})" class="addToCart">Thêm vào giỏ</a>
+                                    @*  @Ajax.ActionLink("Thêm giỏ hàng Ajax", "ThemGioHangAjax", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)*@
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="tab-pane">
+                    <div class="row">
+                        @foreach (var item in news)
+                        {
+                            var link = "/chi-tiet/" + item.MetaTitle + "-" + item.ProductID;
+                            <div class="col l-2 m-4 s-6">
+                                <div class="product">
+                                    <div class="product__avt" style="background-image: url('@item.Image1');">
+                                    </div>
+                                    @if (item.Discount != 0 && item.Discount != null)
+                                    {
+                                        <div class="product__info">
+                                            <h3 class="product__name">@item.Name</h3>
+                                            <div class="product__price">
+                                                <div class="price__old">
+                                                    @Convert.ToDecimal(item.Price / (100 - item.Discount) * 100).ToString("#,##0") <span class="price__unit"> đ</span>
+                                                </div>
+                                                <div class="price__new"> @Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                            </div>
+                                            <div class="product__sale">
+                                                <span class="product__sale-percent">@item.Discount%</span>
+                                                <span class="product__sale-text">Giảm</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product__info">
+                                            <h3 class="product__name">@item.Name</h3>
+
+                                            <div class="product__price">
+                                                <div class="price__new">@Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <a href="@link" class="viewDetail">Xem chi tiết</a>
+                                    <a href="@Url.Action("ThemGioHang", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString()})" class="addToCart">Thêm vào giỏ</a>
+                                    @*  @Ajax.ActionLink("Thêm giỏ hàng Ajax", "ThemGioHangAjax", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)*@
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HightLight  -->
+    <div class="main__frame">
+        <div class="grid wide">
+            <h3 class="category__title">Ngọc Ánh Cometics</h3>
+            <h3 class="category__heading">SẢN PHẨM NỔI BẬT</h3>
+            <div class="owl-carousel hight owl-theme">
+                @foreach (var item in hot)
+                {
+                    var link = "/chi-tiet/" + item.MetaTitle + "-" + item.ProductID;
+                    <div class="product">
+                        <div class="product__avt" style="background-image: url('@item.Image1');">
+                        </div>
+                        @if (item.Discount != 0 && item.Discount != null)
+                        {
+                            <div class="product__info">
+                                <h3 class="product__name">@item.Name</h3>
+                                <div class="product__price">
+                                    <div class="price__old">
+                                        @Convert.ToDecimal(item.Price / (100 - item.Discount) * 100).ToString("#,##0") <span class="price__unit"> đ</span>
+                                    </div>
+                                    <div class="price__new"> @Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                </div>
+                                <div class="product__sale">
+                                    <span class="product__sale-percent">@item.Discount%</span>
+                                    <span class="product__sale-text">Giảm</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product__info">
+                                <h3 class="product__name">@item.Name</h3>
+
+                                <div class="product__price">
+                                    <div class="price__new">@Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                </div>
+                            </div>
+                        }
+                        <a href="@link" class="viewDetail">Xem chi tiết</a>
+                        <a href="@Url.Action("ThemGioHang", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString()})" class="addToCart">Thêm vào giỏ</a>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Sales Policy -->
+    <div class="main__policy">
+        <div class="row">
+            <div class="col l-3 m-6">
+                <div class="policy bg-1">
+                    <img src="~/Content/Site/assets/img/policy/policy1.png" class="policy__img"></img>
+                    <div class="policy__info">
+                        <h3 class="policy__title">GIAO HÀNG MIỄN PHÍ</h3>
+                        <p class="policy__description">Cho đơn hàng từ 300K</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-3 m-6">
+                <div class="policy bg-2">
+                    <img src="~/Content/Site/assets/img/policy/policy2.png" class="policy__img"></img>
+                    <div class="policy__info">
+                        <h3 class="policy__title">ĐỔI TRẢ HÀNG</h3>
+                        <p class="policy__description">Trong 3 ngày đầu tiên</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-3 m-6">
+                <div class="policy bg-1">
+                    <img src="~/Content/Site/assets/img/policy/policy3.png" class="policy__img"></img>
+                    <div class="policy__info">
+                        <h3 class="policy__title">HÀNG CHÍNH HÃNG</h3>
+                        <p class="policy__description">Cam kết chất lượng</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-3 m-6">
+                <div class="policy bg-2">
+                    <img src="~/Content/Site/assets/img/policy/policy4.png" class="policy__img"></img>
+                    <div class="policy__info">
+                        <h3 class="policy__title">TƯ VẤN 24/24</h3>
+                        <p class="policy__description">Giải đáp mọi thắc mắc</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- News -->
+    <div class="main__frame bg-3">
+        <div class="grid wide">
+            <h3 class="category__title">Ngọc Ánh Cometics</h3>
+            <h3 class="category__heading">Tin Tức</h3>
+            @Html.Action("NewPartial", "Home")
+        </div>
+    </div>
+</div>
+<!-- Bands -->
+
+<div class="main__bands">
+    <div class="grid wide">
+        <div class="owl-carousel bands">
+            @{
+                Html.RenderAction("BandPartial", "Home");
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Script for home-->
+<script>
+    $('.owl-carousel.hight').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 6
+            }
+        }
+    })
+    $('.owl-carousel.news').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 2
+            }
+        }
+    })
+    $('.owl-carousel.bands').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: false,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 6
+            }
+        }
+    })
+</script>
+
+<script src="~/Content/Site/assets/js/tabnine.js"></script>
+
+<script src="~/Content/Site/assets/js/home.js"></script>
+
+

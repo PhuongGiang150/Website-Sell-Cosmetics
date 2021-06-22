@@ -1,0 +1,24 @@
+﻿
+<div class="header__cart have"  id="divGioHang">
+    <i class="fas fa-shopping-basket"></i>
+    @if (ViewBag.TongSoLuong == 0)
+    {
+        <div class="header__cart-wrap">
+            <span class="text__no-cart">
+                Giỏ hàng trống
+            </span>
+        </div>
+    }
+    else
+    {
+        <div class="header__cart-amount">
+            @ViewBag.TongSoLuong
+        </div>
+        <div class="header__cart-wrap">
+            <div class="total-money">Tổng cộng:  @ViewBag.TongTien.ToString("#,##")đ</div>
+            <a href="@Url.Action("XemGioHang","Cart")" class="btn btn--default cart-btn">Xem giỏ hàng</a>
+        </div>
+    }
+
+</div>
+

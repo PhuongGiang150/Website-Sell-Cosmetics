@@ -1,0 +1,47 @@
+﻿@model CosmeticsStore.Models.Producer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="h3 mb-2 text-gray-800">Chi tiết nhà cung cấp</h1>
+        <div>
+            <a href="@Url.Action("Edit","Producers" , new { @id = Model.ProducerID})" class="btn btn-warning btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Thay đổi</span>
+            </a>
+        </div>
+        <div>
+            <a href="@Url.Action("Index","Contacts")" class="btn btn-dark btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Trở lại</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(model => model.Name)
+</p>
+<p>
+    @Html.DisplayNameFor(model => model.MetaTitle) : @Html.DisplayFor(model => model.MetaTitle)
+</p>
+<p>
+    @Html.DisplayNameFor(model => model.DisplayOder) : @Html.DisplayFor(model => model.DisplayOder)
+</p>
+<p>
+    @Html.DisplayNameFor(model => model.Info) : @Html.DisplayFor(model => model.Info)
+</p>
+</p>
+@Html.DisplayNameFor(model => model.Logo):<img  src="@Html.DisplayFor(model => model.Logo)" height="80" /> 
+<p>
+<p>
+    @Html.DisplayNameFor(model => model.Status) : @Html.DisplayFor(model => model.Status)
+</p>

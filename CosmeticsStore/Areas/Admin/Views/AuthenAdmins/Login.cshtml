@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng nhập trang quản trị</title>
+    <link href="~/Content/AuthenForms/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main">
+        <form action="/Admin/AuthenAdmins/Dotask" method="POST" class="form" id="form-1">
+            <h3 class="heading">Đăng nhập</h3>
+            <p class="desc">Cùng nhau điều hành Ngọc Ánh Cosmetics ❤️</p>
+            <div class="spacer"></div>
+            <div class="wrapitem-center">
+            </div>
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tài khoản</label>
+                <input id="account" name="account" type="text" placeholder="VD: PhuongGiang" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            @Html.ValidationMessage("ErrorAdmin", new { @class = "form-info" })
+            <button class="form-submit">Đăng Nhập</button>
+            <div class="wrapitem-center">
+                <a class="form-link" href="#">Quên mật khẩu?</a>
+            </div>
+        </form>
+
+    </div>
+    <script src="~/Content/AuthenForms/validator.js"></script>
+    <script>
+        Validator({
+            form: 'form-1',
+            errorSelector: '.form-message',
+            formGroup: '.form-group',
+            rules: [
+                Validator.isRequired('#account'),
+                Validator.minLength('#password', 6),
+            ]
+        })
+    </script>
+</body>
+
+</html>

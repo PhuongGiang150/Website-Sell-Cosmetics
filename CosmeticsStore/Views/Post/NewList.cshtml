@@ -1,0 +1,50 @@
+﻿@using CosmeticsStore.Models
+@using PagedList.Mvc;
+@model PagedList.IPagedList<News>
+
+
+@{
+    ViewBag.Title = "Danh sách tin tức";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<link href="~/Content/Site/assets/css/news.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="main">
+    <div class="grid wide">
+        <div class="main__taskbar">
+            <div class="main__breadcrumb">
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">Trang chủ</a>
+                </div>
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">Danh sách tin tức</a>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            var link = "/tin-tuc/" + item.MetaTitle + "-" + item.NewID;
+            <div class="list-new">
+                <div class="new-item">
+                    <a href="@Url.Action("NewDetail","Post", new { @id = item.NewID})" class="new-item__img">
+                        <img src="@item.Image" alt="">
+                    </a>
+                    <div class="new-item__body">
+                        <a href="@Url.Action("NewDetail","Post", new { @id = item.NewID})" class="new-item__title">
+                            @item.Name
+                        </a>
+                        <p class="new-item__time"> Ngày đăng: @item.UpdateDate</p>
+                        <p class="new-item__description">
+                            @item.Description
+                        </p>
+                        <a href="@link" class="btn btn--default">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="pagination-wrap">
+            @Html.PagedListPager(Model, page => Url.Action("NewList", new { page = page }))
+        </div>
+    </div>
+</div>

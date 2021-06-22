@@ -1,0 +1,135 @@
+﻿@using CosmeticsStore.Models;
+@model Order
+
+@{
+    ViewBag.Title = "Duyệt đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+   
+    <style>
+        .table .tr {
+            padding: 0 8px;
+        }
+
+        .table td,
+        .table th {
+            padding: 10px 0;
+            text-align: center;
+            border-color: #000;
+        }
+
+        .sub-table td {
+            border: none;
+            text-align: left;
+            width: 50%;
+        }
+
+        .text-heading {
+            color: red;
+            font-weight: 600;
+        }
+
+        .product-name {
+        }
+    </style>
+    <div class="card shadow mb-4 p-4">
+        <div style="display:flex; justify-content:space-between">
+            <h2 class="h3 mb-2 text-gray-800">Thông tin đơn hàng của khách <font color="#f65e84">@Model.Customer.Name</font></h2>
+            <a href="/Admin/QuanLyDonHang/ChuaDuyet" class="btn btn-dark btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Trở lại</span>
+            </a>
+        </div>
+        <br />
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.OrderID)
+            <div class="ChiTietDonHang table">
+                @{IEnumerable<DetailOrder> lstChiTietDH = (IEnumerable<DetailOrder>)ViewBag.ListChiTietDH;}
+                <table class="table" id="table" border="1">
+                    @*Phần thông tin đơn hàng*@
+                    <tr>
+                        <td colspan="4" style="padding: 0 12px">
+                            <table class="sub-table" width="100%">
+                                <tr>
+                                    <td>Email: <b class="text-heading"> @Model.Customer.Email</b></td>
+                                    <td>Địa chỉ: <b class="text-heading"> @Model.Customer.Address</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại: <b class="text-heading"> @Model.Customer.Phone</b></td>
+                                    <td>Ngày đặt: @Model.OrderDate.Value.ToString("dd/MM/yyyy")</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày giao hàng: @Html.TextBoxFor(model => model.DeliveryDate)</td>
+                                </tr>
+                                <tr>
+                                    <td>Đã thanh toán: @Html.EditorFor(model => model.Paid)</td>
+                                    <td>Đã giao: @Html.EditorFor(model => model.Status)</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    @*Thông tin chi tiết đơn hàng*@
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                    </tr>
+
+                    @foreach (var item in lstChiTietDH)
+                    {
+                        <tr>
+                            <td class="product-name">@item.Product.Name</td>
+                            <td><img width="80" height="80" src="@Url.Content(item.Product.Image1)" /></td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price.Value.ToString("#,##") đ</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td align="right" colspan="4">Tổng số lượng:<b class="text-heading">@Model.DetailOrders.Sum(n => n.Quantity) sản phẩm</b> </td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">Tổng tiền:<b class="text-heading">@Model.DetailOrders.Sum(n => n.Product.Price * n.Quantity).Value.ToString("#,##") đ</b> </td>
+                    </tr>
+                </table>
+                <br /><br />
+                <button type="button" id="btnInDonHang" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-print"></i>
+                    </span>
+                    <span class="text">In đơn hàng</span>
+                </button>
+                <button type="submit" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-save"></i>
+                    </span>
+                    <span class="text">Duyệt Đơn</span>
+                </button>
+            </div>
+        }
+    </div>
+    <script>
+
+        $("#btnInDonHang").click(function () {
+            var content = "<table>" + $("#table").html() + "</table>";
+            InDonHang(content);
+        });
+
+        //Phương thức in
+        function InDonHang(content) {
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(content);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+    </script>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CosmeticsStore.Models.Product>
+@{
+    ViewBag.Title = "Danh sách SP Hết hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm hết hàng</h1>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã sản phẩm
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Image1)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InventoryNumber)
+                        </th>
+
+
+                        <th>Nhập hàng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProducerID)
+
+                        </td>
+                        <th>
+                            <img src="@Html.DisplayFor(modelItem => item.Image1)" alt="Ảnh sản phẩm" width="60" />
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @item.Price.Value.ToString("#,##")đ
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InventoryNumber)
+                        </td>
+
+
+                        <td class="control">
+                            <a href="@Url.Action("NhapHangDon","QuanLyPhieuNhap" ,new { id=item.ProductID})" title="Nhập hàng" target="_blank" class="btn btn-warning btn-circle"><i class="fas fa-cart-arrow-down"></i></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

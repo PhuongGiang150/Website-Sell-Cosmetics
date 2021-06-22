@@ -1,0 +1,265 @@
+﻿@{ var user = Session["user"] as CosmeticsStore.Models.Customer; }
+@using CosmeticsStore.Models;
+
+@model  Product
+@{
+    var comments = (List<CosmeticsStore.Models.Review>)ViewBag.Comment;
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<!-- Css ProducctDetail -->
+<link href="~/Content/Site/assets/css/productDetail.css" rel="stylesheet" />
+<link href="~/Content/Site/assets/css/Post.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+<div class="main">
+    <div class="grid wide">
+        <div class="productInfo">
+            <div class="row">
+                <div class="col l-5 m-12 s-12">
+                    <div class="owl-carousel owl-theme" id="sync1">
+                        <span class="product" data-thumb="@Url.Content(Model.Image1)">
+                            <div class="product__avt" style="background-image:url(@Url.Content(Model.Image1))">
+                            </div>
+                        </span>
+                        <span class="product" data-thumb="@Url.Content(Model.Image2)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image2))">
+                            </div>
+                        </span>
+                        <span class="product" data-thumb="@Url.Content(Model.Image3)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image3))">
+                            </div>
+                        </span>
+                        <span class="product" data-thumb="@Url.Content(Model.Image4)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image4))">
+                            </div>
+                        </span>
+                    </div>
+                    <div class="owl-carousel owl-theme" id="sync2">
+                        <span class="product" data-thumb="@Url.Content(Model.Image1)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image1))">
+                            </div>
+                        </span>
+                        <span class="product" data-thumb="@Url.Content(Model.Image2)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image2))">
+                            </div>
+                        </span>
+                        <span class="product" data-thumb="@Url.Content(Model.Image3)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image3))">
+                            </div>
+                        </span>
+                        <span class="product" data-thumb="@Url.Content(Model.Image4)">
+                            <div class="product__avt" style="background-image:url( @Url.Content(Model.Image4))">
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="col l-7 m-12s s-12 pl">
+                    <div class="main__breadcrumb">
+                        <div class="breadcrumb__item">
+                            <a href="@Url.RouteUrl("TrangChu")" class="breadcrumb__link">Trang chủ</a>
+                        </div>
+                        <div class="breadcrumb__item">
+                            <a href="#" class="breadcrumb__link">@Model.ProductType.Name</a>
+                        </div>
+                    </div>
+                    <h3 class="productInfo__name">
+                        @Model.Name
+                    </h3>
+                    <div class="productInfo__price">
+                        @if (Model.Discount != 0 && Model.Discount != null)
+                        {
+                            <span class="price-old">
+                                @Convert.ToDecimal(Model.Price / (100 - Model.Discount) * 100).ToString("#,##0") đ
+                            </span>
+                        }
+
+                        @Model.Price.Value.ToString("#,##") <span class="priceInfo__unit">đ</span>
+                        <span class="price-sale">
+                         Giảm: @Model.Discount%
+                        </span>
+                    </div>
+                    <div class="productInfo__description" style="padding-bottom:20px">
+                        <span> @Model.Name </span>  @Model.About
+                    </div>
+                    <a href="@Url.Action("ThemGioHang", "Cart", new { @MaSP = Model.ProductID, @strURL = Request.Url.ToString() })" class=" btn btn--default orange ">Thêm vào giỏ</a>
+                    <div class="productIndfo__policy ">
+                        <div class="policy bg-1 ">
+                            <img src="~/Content/Site/assets/img/policy/policy1.png " class="productIndfo__policy-img ">
+                            <div class="productIndfo__policy-info ">
+                                <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
+                                <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                            </div>
+                        </div>
+                        <div class="policy bg-2 ">
+                            <img src="~/Content/Site/assets/img/policy/policy2.png " class="productIndfo__policy-img ">
+                            <div class="productIndfo__policy-info ">
+                                <h3 class="productIndfo__policy-title ">Đổi trả hàng n</h3>
+                                <p class="productIndfo__policy-description ">Trong 3 ngày đầu tiê</p>
+                            </div>
+                        </div>
+                        <div class="policy bg-1 ">
+                            <img src="~/Content/Site/assets/img/policy/policy3.png " class="productIndfo__policy-img ">
+                            <div class="productIndfo__policy-info ">
+                                <h3 class="productIndfo__policy-title ">Hàng chính hãng</h3>
+                                <p class="productIndfo__policy-description ">Cam kết chất lượng</p>
+                            </div>
+                        </div>
+                        <div class="policy bg-2 ">
+                            <img src="~/Content/Site/assets/img/policy/policy4.png " class="productIndfo__policy-img ">
+                            <h3 class="productIndfo__policy-title ">Tư vấn 24/7</h3>
+                            <p class="productIndfo__policy-description ">Giải đáp mọi thắc mắc</p>
+                        </div>
+                    </div>
+                    <div class="productIndfo__category ">
+                        <p class="productIndfo__category-text"> Danh mục : <a href="" class="productIndfo__category-link " name="productType">@Model.ProductType.Name</a></p>
+                        <p class="productIndfo__category-text"> Hãng : <a href="# " class="productIndfo__category-link ">@Model.Producer.Name</a></p>
+                        <p class="productIndfo__category-text"> Số lượng đã bán : @Model.SellCounts</p>
+                        <p class="productIndfo__category-text"> Số lượng trong kho : @Model.InventoryNumber</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="productDetail">
+            <div class="main__tabnine ">
+                <div class="grid wide ">
+                    <!-- Tab items -->
+                    <div class="tabs ">
+                        <div class="tab-item active ">
+                            Mô tả
+                        </div>
+                        <div class="tab-item ">
+                            Đánh giá
+                        </div>
+                        <div class="line "></div>
+                    </div>
+                    <!-- Tab content -->
+                    <div class="tab-content ">
+                        <div class="tab-pane active ">
+                            <div id="Des" class="productDes">
+                                <div class="productDes__title "> @Html.DisplayFor(model => model.Name)</div>
+                                @Html.Raw(Model.Description)
+                            </div>
+                        </div>
+                        <div class="tab-pane ">
+                            @if (user != null)
+                            {
+                                @Html.Action("CreateReview", "Product", new { @productID = Model.ProductID })
+                            }
+                            else
+                            {
+                                <h3 style="font-size:18px; padding:12px 0; text-align:center">Bạn cần đăng nhập trước khi bình luận</h3>
+                            }
+                            @Html.Action("ListRate", "Product", new { @id = Model.ProductID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Action("ProductLikePartial", "Product", new { @tukhoa = Model.ProductType.Name })
+    </div>
+</div>
+<!--Script-->
+<script>
+    $(document).ready(function () {
+        var sync1 = $("#sync1 ");
+        var sync2 = $("#sync2 ");
+        var slidesPerPage = 4;
+        var syncedSecondary = true;
+        sync1.owlCarousel({
+            items: 1,
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true
+        })
+        sync2
+            .on('initialized.owl.carousel', function () {
+                sync2.find(".owl-item ").eq(0).addClass("current");
+            })
+            .owlCarousel({
+                items: 4,
+                dots: false,
+                nav: false,
+                margin: 30,
+                smartSpeed: 200,
+                slideSpeed: 500,
+                slideBy: 4,
+                responsiveRefreshRate: 100
+            }).on('changed.owl.carousel', syncPosition2);
+
+        function syncPosition(el) {
+            var count = el.item.count - 1;
+            var current = Math.round(el.item.index - (el.item.count / 2) - .5);
+
+            if (current < 0) {
+                current = count;
+            }
+            if (current > count) {
+                current = 0;
+            }
+
+            //end block
+
+            sync2
+                .find(".owl-item ")
+                .removeClass("current ")
+                .eq(current)
+                .addClass("current ");
+            var onscreen = sync2.find('.owl-item.active').length - 1;
+            var start = sync2.find('.owl-item.active').first().index();
+            var end = sync2.find('.owl-item.active').last().index();
+
+            if (current > end) {
+                sync2.data('owl.carousel').to(current, 100, true);
+            }
+            if (current < start) {
+                sync2.data('owl.carousel').to(current - onscreen, 100, true);
+            }
+        }
+
+        function syncPosition2(el) {
+            if (syncedSecondary) {
+                var number = el.item.index;
+                sync1.data('owl.carousel').to(number, 100, true);
+            }
+        }
+
+        sync2.on("click ", ".owl-item ", function (e) {
+            e.preventDefault();
+            var number = $(this).index();
+            sync1.data('owl.carousel').to(number, 300, true);
+        });
+    });
+
+    $('.owl-carousel.hight').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 6
+            }
+        }
+    });
+</script>
+<script src="~/Content/Site/assets/js/tabnine.js"></script>
+<script>
+    function calcRate(r) {
+        const f = ~~r, //Tương tự Math.floor(r)
+            id = 'star' + f + (r % f ? 'half' : '')
+        id && (document.getElementById(id).checked = !0)
+    }
+</script>

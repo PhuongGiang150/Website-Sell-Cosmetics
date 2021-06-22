@@ -1,0 +1,37 @@
+﻿@using CosmeticsStore.Models;
+@model  Contact
+    <ul class="footer__list">
+        <li class="footer__item">
+            <span class="footer__text">
+                <i class="fas fa-map-marked-alt"></i> @Model.Address
+            </span>
+        </li>
+        <li class="footer__item">
+            <a href="#" class="footer__link">
+                <i class="fas fa-phone"></i> @Model.Phone1
+            </a>
+        </li>
+        <li class="footer__item">
+            <a href="#" class="footer__link">
+                <i class="fas fa-envelope"></i> @Model.Email
+        </li>
+        <li class="footer__item">
+            <div class="social-group">
+                <a href="@Model.Facebook" class="social-item">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="@Model.Tiwtter" class="social-item">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="@Model.Pinterest" class="social-item">
+                    <i class="fab fa-pinterest-p"></i>
+                </a>
+                <a href="@Model.Instargram" class="social-item">
+                    <i class="fab fa-invision"></i>
+                </a>
+                <a href="@Model.Youtobe" class="social-item">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </li>
+    </ul>

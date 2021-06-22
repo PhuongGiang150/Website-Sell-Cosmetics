@@ -1,0 +1,22 @@
+﻿@model IEnumerable<CosmeticsStore.Models.News>
+
+
+<div class="owl-carousel news owl-theme">
+
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("NewDetail","Post", new { @id = item.NewID})" class="news">
+            <div class="news__img">
+                <img src="@item.Image" alt="">
+            </div>
+            <div class="news__body">
+                <h3 class="news__body-title">@item.Name</h3>
+                <div class="new__body-date">@item.UpdateDate</div>
+                <p class="news__description">
+                    @item.Description
+                </p>
+            </div>
+        </a>
+    }
+</div>
+

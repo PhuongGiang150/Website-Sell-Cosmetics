@@ -1,0 +1,108 @@
+﻿@{
+    var admin = Session["admin"] as CosmeticsStore.Models.Customer;
+}
+
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index","Dashboard","Admin")">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-store-alt"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Ngọc Ánh Cosmestics</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index","Dashboard","Admin")">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Bảng điều khiển</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quản lý Mua bán</span>
+        </a>
+        <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Đơn hàng:</h6>
+                <a class="collapse-item" href="@Url.Action("ChuaDuyet","QuanLyDonHang","Admin")">Chưa Duyệt</a>
+                <a class="collapse-item" href="@Url.Action("DangGiao","QuanLyDonHang","Admin")">Đang Giao</a>
+                <a class="collapse-item" href="@Url.Action("HoanThanh","QuanLyDonHang","Admin")">Hoàn Thành</a>
+                @*  <a class="collapse-item" href="@Url.Action("ThatBai","QuanLyDonHang","Admin")">Thất Bại</a>*@
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-info-circle"></i>
+            <span>Quản lý Nhập hàng</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("NhapHang","QuanLyPhieuNhap","Admin")">Nhập hàng</a>
+                <a class="collapse-item" href="@Url.Action("DSSPHetHang","QuanLyPhieuNhap","Admin")">Sản phẩm hết hàng tồn</a>
+            </div>
+        </div>
+    </li>
+    <!-- Divider -->
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fab fa-product-hunt"></i>
+            <span>Quản lý Sản phẩm</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("Index","Products","Admin")">Sản phẩm</a>
+                <a class="collapse-item" href="@Url.Action("Index","ProductTypes","Admin")">Loại sản phẩm</a>
+                <a class="collapse-item" href="@Url.Action("Index","Producers","Admin")">Hãng sản phẩm</a>
+                <a class="collapse-item" href="@Url.Action("Index","Suppliers","Admin")">Nhà cung cấp</a>
+                <a class="collapse-item" href="@Url.Action("Index","Reviews","Admin")">Đánh giá sản phẩm</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-info-circle"></i>
+            <span>Quản lý Tài khoản</span>
+        </a>
+        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                <a class="collapse-item" href="@Url.Action("Customer","Customers","Admin")">Khách hàng</a>
+                @if (admin.Role == "Chủ cửa hàng")
+                {
+    <a class="collapse-item" href="@Url.Action("Manager", "Customers", "Admin")">Quản trị viên</a>}
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quản lý Thông tin</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("Index","Abouts","Admin")">Giới thiệu</a>
+                <a class="collapse-item" href="@Url.Action("Index","Contacts","Admin")">Liên hệ</a>
+                <a class="collapse-item" href="@Url.Action("Index","News","Admin")">Tin tức</a>
+                <a class="collapse-item" href="@Url.Action("Index","Sliders","Admin")">Slide</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Heading -->
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>

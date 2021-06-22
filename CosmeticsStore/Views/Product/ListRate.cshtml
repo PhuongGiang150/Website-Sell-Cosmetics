@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CosmeticsStore.Models.Review>
+
+<ul class="rate__list">
+    @foreach (var item in Model)
+    {
+        <li class="rate__item">
+            <div class="rate__info">
+                @if (item.Customer.Image == null)
+                {
+                    <img src="/UploadFiles/images/users/userdefault.png" alt="">
+                }
+                else
+                {
+                    <img src="@item.Customer.Image" alt="">
+                }
+                <h3 class="rate__user">@item.Customer.Name</h3>
+                <div class="rate__star">
+                    <div class="group-star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="rate__comment">@item.Content</div>
+        </li>
+    }
+    </ul>

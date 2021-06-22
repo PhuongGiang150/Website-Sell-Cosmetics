@@ -1,0 +1,68 @@
+.form-horizontal {
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -16px;
+    margin-right: -16px;
+}
+
+    .form-horizontal .form-group {
+        display: flex;
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 16px;
+        padding-right: 16px;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .form-horizontal .form-group2 {
+        display: flex;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+        align-items: center;
+        margin-bottom: 30px;
+        justify-content: center;
+    }
+
+    .form-horizontal .control-label {
+        margin-bottom: 0;
+    }
+
+    .form-horizontal .control-wrapper {
+        flex: 1
+    }
+
+    .form-horizontal .text-danger {
+        position: absolute;
+        font-size: 0.9rem;
+    }
+
+    .form-horizontal .form-group .col-md-10 {
+        position: relative;
+    }
+
+.btn-select-img {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    background: #ccc;
+    color: #000;
+    height: 38px;
+    line-height: 38px;
+    border: none;
+    width: 38px;
+    text-align: center;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.form-horizontal .img-table {
+    width: 160px;
+}
+
+.card.shadow.mb-4 {
+    font-size: 14px;
+}

@@ -1,0 +1,31 @@
+﻿@model CosmeticsStore.Models.News
+
+@{
+    ViewBag.Title = "Chi tiết tin tức";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="h3 mb-2 text-gray-800">Tin tức</h1>
+        <div>
+            <a href="@Url.Action("Edit","News" , new { @id = Model.NewID})" class="btn btn-warning btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Thay đổi</span>
+            </a>
+        </div>
+        <div>
+            <a href="@Url.Action("Index","News")" class="btn btn-dark btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Trở lại</span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="postWrap">
+    <h1 class="post-heading"> @Model.Name</h1>
+    @Html.Raw(Model.Content)
+</div>

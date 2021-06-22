@@ -1,0 +1,11 @@
+1. Giới thiệu
+- Sử dụng ứng dụng Visual studio 2019 và Sql Sever 2014
+- Website sử dụng ngôn ngữ C# ASP.NET MVC 5
+- Giao diện front end tự thiết kế link: https://phuonggiang150.github.io/GiaoDienBanMyPham/
+- Giao diện trang quản trị : sử dung template SB admin 2
+2. Hướng dẫn cài đặt
+- Tải source zip
+- Atack cơ sở dữ liệu (link hưỡng dẫn: https://youtu.be/Z9jznm3tDAY)
+- Restore lại cơ sở dữ liệu thông qua file .bak
+- Đổi chuỗi <connectionStrings> trong mục Web.config
+- Chạy chương trình...

@@ -1,0 +1,58 @@
+﻿@using CosmeticsStore.Models;
+@model Product
+
+@{
+    ViewBag.Title = "Nhập hàng đơn lẻ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<legend>Nhập hàng cho sản phẩm  <b style="color: rgb(192,0,0)">@Model.Name</b> </legend>
+
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="imgSP">
+            <img src="@Url.Content(Model.Image1)" height="100" />
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="ttSP">
+            <h5>Hãng sản xuất: @Model.Producer.Name</h5>
+            <h5>Loại sản phẩm: @Model.ProductType.Name</h5>
+            <h5>Số lượng tồn: @Model.InventoryNumber</h5>
+        </div>
+    </div>
+</div>
+<br />
+<fieldset>
+    <legend>Thông tin nhập hàng</legend>
+</fieldset>
+@using (Html.BeginForm("NhapHangDon", "QuanLyPhieuNhap"))
+{
+    @Html.Hidden("ProductID", Model.ProductID)
+    <div class="row">
+        <div class="col-md-4">
+            @{var lstNCC = (SelectList)ViewBag.MaNCC;}
+            Nhà cung cấp: @Html.DropDownList("SupplierID", lstNCC, new { @class = "MaNCC" })
+        </div>
+        <div class="col-md-4">
+            Số lượng nhập : @Html.TextBox("Quantity")
+        </div>
+        <div class="col-md-4">
+            Đơn giá nhập :@Html.TextBox("EntryPrice")
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="clear right" style="text-align:center; padding-top:20px">
+        <button type="submit" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-cart-arrow-down"></i>
+            </span>
+            <span class="text">Nhập hàng</span>
+        </button>
+    </div>
+}

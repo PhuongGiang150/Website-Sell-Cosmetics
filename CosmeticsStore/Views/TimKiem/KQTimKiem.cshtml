@@ -1,0 +1,88 @@
+﻿@using CosmeticsStore.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Product>
+@{
+    ViewBag.Title = "KQTimKiem";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<link href="~/Content/Site/assets/css/productDetail.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="main">
+    <div class="grid wide">
+        <div class="main__taskbar">
+            <div class="main__breadcrumb">
+                <div class="breadcrumb__item">
+                    <a href="@Url.RouteUrl("TrangChu")" class="breadcrumb__link">Trang chủ</a>
+                </div>
+                <div class="breadcrumb__item">
+                    <a href="#" class="breadcrumb__link">Tìm Kiếm: @ViewBag.TuKhoa</a>
+                </div>
+            </div>
+            <div class="main__sort">
+                <h3 class="sort__title">
+                    Hiển thị kết quả theo
+                </h3>
+                <select class="sort__select">
+                    name="" id="">
+                    <option value="1">Thứ tự mặc định</option>
+                    <option value="2">Mức độ phổ biến</option>
+                    <option value="3">Điểm đánh giá</option>
+                    <option value="4">Mới cập nhật</option>
+                    <option value="5">Giá : Cao đến thấp</option>
+                    <option value="6">Giá Thấp đến cao</option>
+                </select>
+            </div>
+        </div>
+        <div class="productList">
+            <div class="listProduct">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        var link = "/chi-tiet/" + item.MetaTitle + "-" + item.ProductID;
+                        <div class="col l-2 m-4 s-6">
+                            <div class="product">
+                                <div class="product__avt" style="background-image: url('@item.Image1');">
+                                </div>
+                                @if (item.Discount != 0 && item.Discount != null)
+                                {
+                                    <div class="product__info">
+                                        <h3 class="product__name">@item.Name</h3>
+                                        <div class="product__price">
+                                            <div class="price__old">
+                                                @Convert.ToDecimal(item.Price / (100 - item.Discount) * 100).ToString("#,##0") <span class="price__unit"> đ</span>
+                                            </div>
+                                            <div class="price__new"> @Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                        </div>
+                                        <div class="product__sale">
+                                            <span class="product__sale-percent">@item.Discount%</span>
+                                            <span class="product__sale-text">Giảm</span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="product__info">
+                                        <h3 class="product__name">@item.Name</h3>
+
+                                        <div class="product__price">
+                                            <div class="price__new">@Convert.ToDecimal(item.Price).ToString("#,##0") <span class="price__unit">đ</span></div>
+                                        </div>
+                                    </div>
+                                }
+                                <a href="@link" class="viewDetail">Xem chi tiết</a>
+                                <a href="@Url.Action("ThemGioHang", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString()})" class="addToCart">Thêm vào giỏ</a>
+                                @*  @Ajax.ActionLink("Thêm giỏ hàng Ajax", "ThemGioHangAjax", "Cart", new { @MaSP = item.ProductID, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)*@
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="pagination-wrap">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("KQTimKiem", new { page = page, @sTuKhoa = ViewBag.TuKhoa }))
+
+            </div>
+        </div>
+    </div>
+</div>
+

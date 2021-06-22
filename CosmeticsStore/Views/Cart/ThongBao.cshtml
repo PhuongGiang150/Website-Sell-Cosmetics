@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "ThongBao";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<link href="~/Content/Site/assets/css/cart.css" rel="stylesheet" />
+
+<div class="main" style="text-align:center; padding: 60px 0">
+    <h3 class="main__notify-text" style="margin-bottom:16px">Sản phẩm trong kho không đủ vui lòng đặt lại số lượng.</h3>
+    <a href="@Url.Action("XemGioHang", "Cart")" class="btn btn--default">Đặt lại</a>
+</div>
+
+

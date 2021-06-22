@@ -1,0 +1,153 @@
+﻿@{ var user = Session["user"] as CosmeticsStore.Models.Customer; }
+@model CosmeticsStore.Models.Customer
+
+@{
+    ViewBag.Title = "Thay đổi thông tin";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+@section jsSite{
+    <script>
+        $('#btnSelectImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#Image').val(url);
+            };
+            finder.popup();
+        })
+    </script>
+}
+<style>
+    .main {
+        margin-bottom: 30px;
+    }
+
+    .heading {
+        color: var(--default-cl);
+        font-size: 2rem;
+        text-transform: uppercase;
+        border-bottom: 2px solid rgba(0,0,0,0.2);
+        padding: 20px 0 12px 0;
+    }
+
+    .form-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    .form-label {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        display:block;
+    }
+
+    .form-group {
+        margin-top: 20px;
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .form-group2 {
+        text-align: center;
+        width: 100%;
+    }
+
+    .text-danger {
+        display: block;
+        color: red;
+        height: 20px;
+        padding-top: 6px;
+        font-size: 1.4rem;
+    }
+
+    .form-control {
+        margin-top: 0;
+    }
+
+    .wrapSelectImage {
+        position: relative;
+    }
+
+    #btnSelectImage {
+        position: absolute;
+        right: 0;
+        height: 100%;
+        border: none;
+        outline: none;
+        width: 40px;
+        font-size: 1.6rem;
+    }
+</style>
+@if (user != null)
+{
+    <div class="main">
+        <div class="grid wide">
+            <h3 class="heading">Thay đổi thông tin tài khoản</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.CustomerID)
+                    @Html.HiddenFor(model => model.UserName)
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-label" })
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "form-label" })
+                        <div class="wrapSelectImage">
+                            @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                            <button id="btnSelectImage">...</button>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group ">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group2">
+                        <input type="submit" value="Cập Nhật" class="btn btn--default" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="main">
+        <div class="grid wide">
+            <h3 class="heading">Bạn cần đăng nhập tài khoản trước</h3>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/JsAdminCK_")
+

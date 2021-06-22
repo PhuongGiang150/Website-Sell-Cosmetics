@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CosmeticsStore.Models.Contact>
+
+@{
+    ViewBag.Title = "Danh sách liên hệ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h1 class="h3 mb-2 text-gray-800">Danh sách liên hệ</h1>
+        <div>
+            <a href="@Url.Action("Create","Contacts")" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Thêm mới</span>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Logo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>Tác vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <img src="@Html.DisplayFor(modelItem => item.Logo)" alt="logo" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @if (item.Status != false)
+                                {
+                                    <span>Hiện</span>
+                                }
+                                else
+                                {
+                                    <span>Ẩn</span>
+
+                                }
+                            </td>
+                            <td class="control">
+                                <a href="@Url.Action("Details","Contacts" ,new { id=item.ContactID})" title="Chi Tiết" class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i></a>
+                                <a href="@Url.Action("Edit","Contacts" ,new { id=item.ContactID})" title="Sửa" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="@Url.Action("Delete", "Contacts", new { id = item.ContactID })" title="Xóa" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

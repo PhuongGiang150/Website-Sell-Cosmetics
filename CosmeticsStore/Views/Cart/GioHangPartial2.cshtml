@@ -1,0 +1,49 @@
+﻿    <div class="main__pay-title">Tổng số lượng</div>
+    <div class="pay-info">
+        <div class="main__pay-text">
+            Tổng phụ
+        </div>
+        <div class="main__pay-price">
+            @ViewBag.TongTien.ToString("#,##") đ
+        </div>
+    </div>
+    @if (ViewBag.TongTien > 300000)
+    {
+        <div class="pay-info">
+            <div class="main__pay-text">
+                Phí giao hàng
+            </div>
+
+            <div class="main__pay-text">
+                Giao hàng miễn phí
+            </div>
+        </div>
+        <div class="pay-info">
+            <div class="main__pay-text">
+                Tổng thành tiền
+            </div>
+            <div class="main__pay-price">
+                @ViewBag.TongTien.ToString("#,##") đ
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="pay-info">
+            <div class="main__pay-text">
+                Phí giao hàng
+            </div>
+            <div class="main__pay-text">
+                30.000 đ
+            </div>
+        </div>
+        <div class="pay-info">
+            <div class="main__pay-text">
+                Tổng thành tiền
+            </div>
+            <div class="main__pay-price">
+                @((ViewBag.TongTien).ToString("#,##")) đ
+            </div>
+        </div>
+    }
+    

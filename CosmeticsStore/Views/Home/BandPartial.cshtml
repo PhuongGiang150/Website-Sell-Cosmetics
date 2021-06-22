@@ -1,0 +1,8 @@
+﻿@model IEnumerable<CosmeticsStore.Models.Producer>
+
+@foreach (var item in Model)
+{
+    var link = "/danh-muc/" + item.MetaTitle + "-" + item.ProducerID;
+
+    <a href="@link" class="band__item" style="background-image: url(@item.Logo)"></a>
+}

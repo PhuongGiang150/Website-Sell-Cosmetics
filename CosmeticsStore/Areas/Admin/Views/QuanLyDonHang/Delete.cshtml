@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Xóa đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="modal fade show" style="display:block" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn có có chắc chắn muốn xóa đơn hàng này?</h5>
+                    <a href="/Admin/QuanLyDonHang/DangGiao" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <a href="/Admin/QuanLyDonHang/DangGiao" class="btn btn-dark">
+                        Trở lại
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        Xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
