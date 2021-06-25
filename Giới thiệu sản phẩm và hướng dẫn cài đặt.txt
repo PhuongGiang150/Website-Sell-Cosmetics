@@ -8,4 +8,5 @@
 - Atack cơ sở dữ liệu (link hưỡng dẫn: https://youtu.be/Z9jznm3tDAY)
 - Restore lại cơ sở dữ liệu thông qua file .bak
 - Đổi chuỗi <connectionStrings> trong mục Web.config
+- Đặt tên miền ảo ISS là banmypham.com sẽ có facebook chat
 - Chạy chương trình...
